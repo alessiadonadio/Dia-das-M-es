@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dia das Mães - História e Significado</title>
+    <meta name="description" content="Saiba mais sobre o Dia das Mães: sua origem, importância e como essa data é celebrada ao redor do mundo.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Jogo Dia das Mães</h1>
+</header>
+
+<nav>
+
+    <a href="index.html">Início</a>
+</nav>
+
+<div class="game-container">
+    <div class="tree">
+        <div class="tree-top"></div>
+    </div>
+    <div class="girl"></div>
+    <div class="score" id="score">Pontuação: 0</div>
+</div>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #fff8f0;
+        color: #333;
+    }
+
+    header {
+        background-color: #e07a5f;
+        color: rgb(0, 0, 0);
+        padding: 30px 20px;
+        text-align: center;
+        background-image: url(https://static.vecteezy.com/ti/vetor-gratis/p1/561991-cartao-do-dia-das-maes-feliz-dia-da-mae-s-elegante-caligrafia-bandeira-letras-vector-texto-no-fundo-do-quadro-vetor.jpg);
+    }
+
+    nav {
+        background-color: #ee7676;
+        padding: 10px 20px;
+        text-align: center;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    nav a:hover {
+        color: #264653;
+    }
+
+    .game-container {
+        width: 500px;
+        height: 500px;
+        background-color: #81b1df;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        overflow: hidden;
+        border: 2px solid #000000;
+        border-radius: 10px;
+        margin-top: 50px;
+    }
+
+    .tree {
+        position: absolute;
+        bottom: 10px;
+        left: 20px;
+        width: 300px;
+        height: 400px;
+        background-image: url('img/60f6709d11ae3ca9becafb7fa487a941-removebg-preview.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: bottom left;
+        left: -60px;
+    }
+
+    .girl {
+        position: absolute;
+        bottom: 10px;
+        left: 200px;
+        width: 50px;
+        height: 80px;
+        background-image: url('img/unnamed-removebg-preview.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+    }
+
+    .flower {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-image: url('img/56dfa656634558e01b7685323bc0a8e2-removebg-preview.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+    }
+
+    .score {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 18px;
+        color: white;
+    }
+
+    footer {
+    background-color: #264653;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100; 
+}
+
+footer p {
+    margin: 5px;
+}
+</style>
+
+<script>
+    const gameContainer = document.querySelector('.game-container');
+    const girl = document.querySelector('.girl');
+    const scoreDisplay = document.getElementById('score');
+    let score = 0;
+    let flowers = [];
+    const flowerFallSpeed = 1; 
+    const flowerSpawnInterval = 1000;
+    let goal = 30; 
+    let gameOver = false;
+
+    function createFlower() {
+        const flower = document.createElement('div');
+        flower.classList.add('flower');
+        flower.style.left = Math.random() * (gameContainer.offsetWidth - 20) + 'px';
+        flower.style.top = '0px';
+        gameContainer.appendChild(flower);
+        flowers.push(flower);
+
+        flower.addEventListener('click', () => {
+            if (!gameOver) {
+                score++;
+                updateScore();
+                checkVictory();
+                flower.remove();
+                flowers = flowers.filter(f => f !== flower);
+            }
+        });
+    }
+
+    function updateScore() {
+        scoreDisplay.textContent = `Pontuação: ${score}`;
+    }
+
+    function checkVictory() {
+        if (score >= goal && !gameOver) {
+            gameOver = true;
+            alert(`Parabéns! Você coletou ${goal} florzinhas!🌸`);
+            startGame();  
+        }
+    }
+
+    function moveFlowers() {
+        flowers.forEach(flower => {
+            let flowerTop = parseFloat(flower.style.top);
+            if (flowerTop < gameContainer.offsetHeight) {
+                flower.style.top = flowerTop + flowerFallSpeed + 'px';
+            } else {
+                flower.remove();
+                flowers = flowers.filter(f => f !== flower);
+                if (!gameOver) {
+                    gameOver = true;
+                    alert("Fim de Jogo! Você perdeu!");
+                    startGame();  
+                }
+            }
+        });
+    }
+
+    function spawnFlowers() {
+        setInterval(createFlower, flowerSpawnInterval);
+    }
+
+    function startGame() {
+        gameOver = false;
+        score = 0;
+        updateScore();
+        flowers = [];
+        setInterval(moveFlowers, 20);
+        spawnFlowers();
+    }
+
+    window.onload = () => {
+        startGame();
+        setInterval(moveFlowers, 20);
+    };
+
+    gameContainer.addEventListener('mousemove', (event) => {
+        const containerRect = gameContainer.getBoundingClientRect();
+        const mouseX = event.clientX - containerRect.left;
+
+        const girlWidth = girl.offsetWidth;
+        let girlX = mouseX - girlWidth / 2;
+
+        girlX = Math.max(0, Math.min(girlX, gameContainer.offsetWidth - girlWidth));
+
+        girl.style.left = girlX + 'px';
+    });
+
+    function startNewGame() {
+        let newGoal = prompt('Digite a nova meta de florzinhas:', '30');
+        newGoal = parseInt(newGoal);
+
+        if (isNaN(newGoal) || newGoal <= 0) {
+            alert('Meta inválida! Usando 30 como padrão.');
+            newGoal = 30;
+        }
+
+        goal = newGoal;
+        score = 0;
+        document.getElementById('score').textContent = 'Pontos: 0';
+        gameOver = false;
+
+        flowers.forEach(flower => flower.remove());
+        flowers = [];
+
+        setInterval(createFlower, 800);
+        setInterval(moveFlowers, 20);
+    }
+</script>
+<footer>
+    <p>&copy; 2025 Dia das Mães. Todos os direitos reservados.</p>
+    <p>Desenvolvido por Alessia</p>
+</footer>
+
+</body>
+</html>

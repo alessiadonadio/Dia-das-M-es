@@ -1,0 +1,138 @@
+/* Resetando o estilo básico */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #fff8f0;
+    color: #333;
+}
+
+header {
+    background-color: #e07a5f;
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+     background-image: url(https://static.vecteezy.com/ti/vetor-gratis/p1/561991-cartao-do-dia-das-maes-feliz-dia-da-mae-s-elegante-caligrafia-bandeira-letras-vector-texto-no-fundo-do-quadro-vetor.jpg);
+    background-size: cover; /* Ajusta o fundo para cobrir a área */
+    background-position: center;
+    color: white;
+}
+
+nav {
+    background-color: #ee7676;
+    padding: 15px 20px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #264653;
+}
+
+/* Estilização do header e título principal */
+.h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2em;
+    color: #2a2a2a;
+}
+
+footer {
+    background-color: #264653;
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: center;  /* Centraliza horizontalmente */
+    align-items: center;  /* Centraliza verticalmente */
+}
+
+footer p {
+    margin: 5px;
+    padding: 0;
+    font-size: 14px;
+}
+
+/* Melhoria no espaçamento e design de todos os elementos da página */
+section {
+    padding: 40px 20px;
+    margin: 20px 0;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1, h2 {
+    color: #2a2a2a;
+}
+
+p {
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #ee7676;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #264653;
+}
+
+/* Melhorias na navegação e links */
+nav a {
+    font-size: 18px;  /* Tamanho da fonte maior para links */
+    margin: 0 25px;  /* Maior espaçamento entre os links */
+}
+
+nav a:hover {
+    color: #264653; /* Mudança de cor no hover */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+
+    nav {
+        padding: 10px 10px;
+    }
+
+    .h1 {
+        font-size: 1.5em;
+    }
+
+    nav a {
+        font-size: 16px;
+        margin: 0 15px;
+    }
+
+    footer {
+        font-size: 12px;
+    }
+}
